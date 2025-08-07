@@ -339,7 +339,28 @@ function displayAnalysis(originalElement, analysisText, isError) {
   analysisDiv.style.textAlign = 'left';
   analysisDiv.style.whiteSpace = 'pre-wrap'; // Handles newlines and spaces in the analysis text
 
-  analysisDiv.textContent = analysisText; // Using textContent to prevent XSS
+  const createCloseButton = () => {
+    const button = document.createElement('button');
+    button.textContent = 'Close Analysis';
+    button.style.display = 'block';
+    button.style.margin = '5px 0'; // Adjusted margin for spacing
+    button.style.fontSize = '0.8em';
+    button.onclick = () => {
+      analysisDiv.remove();
+    };
+    return button;
+  };
+
+  // Add top close button
+  analysisDiv.appendChild(createCloseButton());
+
+  const textNode = document.createElement('div');
+  textNode.textContent = analysisText;
+  analysisDiv.appendChild(textNode);
+
+  // Add bottom close button
+  analysisDiv.appendChild(createCloseButton());
+
 
   // Attempt to insert below the original element.
   // If originalElement is an inline element, its parentNode.insertBefore might be more stable.
@@ -351,17 +372,6 @@ function displayAnalysis(originalElement, analysisText, isError) {
     document.body.appendChild(analysisDiv);
     console.warn("displayAnalysis: originalElement has no parentNode, appending to body. This might not be the desired position.");
   }
-
-
-  const closeButton = document.createElement('button');
-  closeButton.textContent = 'Close Analysis';
-  closeButton.style.display = 'block';
-  closeButton.style.marginTop = '5px';
-  closeButton.style.fontSize = '0.8em';
-  closeButton.onclick = () => {
-    analysisDiv.remove();
-  };
-  analysisDiv.appendChild(closeButton);
 }
 
 // console.log("Text Analyzer AI Helper content script loaded.");
