@@ -17,6 +17,7 @@
     <button id="showSettingsView">Settings</button>
     <button id="showModelPresetsView">Model Presets</button>
     <button id="showCustomPromptsViewButton">Custom Prompts</button>
+    <button id="showUserGuideView">用户手册</button>
   </div>
 
   <div id="settingsView">
@@ -118,6 +119,11 @@
     <textarea id="customPromptInput6" rows="6" style="width: 95%; margin-top: 3px; font-family: monospace; font-size: 0.9em;"></textarea>
     <button id="saveCustomPromptsButton">Save Custom Prompts</button>
     <div id="customPromptsStatus" style="margin-top: 10px; font-size: 0.9em;"></div>
+  </div>
+
+  <div id="userGuideView" style="display: none;">
+    <h2>用户手册</h2>
+    <div id="userGuideContent" style="white-space: pre-wrap; font-family: monospace; background: #f4f4f4; padding: 10px; border-radius: 5px; max-height: 400px; overflow-y: auto;"></div>
   </div>
 
   <script src="popup.js"></script>

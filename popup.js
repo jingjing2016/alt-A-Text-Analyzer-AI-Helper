@@ -4,10 +4,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // View navigation elements
   const showSettingsViewButton = document.getElementById('showSettingsView');
   const showModelPresetsViewButton = document.getElementById('showModelPresetsView');
-  const showCustomPromptsViewButton = document.getElementById('showCustomPromptsViewButton'); // New
+  const showCustomPromptsViewButton = document.getElementById('showCustomPromptsViewButton');
+  const showUserGuideViewButton = document.getElementById('showUserGuideView');
   const settingsView = document.getElementById('settingsView');
   const modelPresetsView = document.getElementById('modelPresetsView');
-  const customPromptsView = document.getElementById('customPromptsView'); // New
+  const customPromptsView = document.getElementById('customPromptsView');
+  const userGuideView = document.getElementById('userGuideView');
+  const userGuideContent = document.getElementById('userGuideContent');
 
   // Settings View elements
   const apiEndpointInput = document.getElementById('apiEndpoint');
@@ -57,13 +60,15 @@ document.addEventListener('DOMContentLoaded', () => {
   function showView(viewToShow) {
     settingsView.style.display = 'none';
     modelPresetsView.style.display = 'none';
-    customPromptsView.style.display = 'none'; // New
+    customPromptsView.style.display = 'none';
+    userGuideView.style.display = 'none';
     viewToShow.style.display = 'block';
   }
 
   showSettingsViewButton.addEventListener('click', () => showView(settingsView));
   showModelPresetsViewButton.addEventListener('click', () => showView(modelPresetsView));
-  showCustomPromptsViewButton.addEventListener('click', () => showView(customPromptsView)); // New
+  showCustomPromptsViewButton.addEventListener('click', () => showView(customPromptsView));
+  showUserGuideViewButton.addEventListener('click', () => showView(userGuideView));
 
   // --- Loading Data ---
   function loadData() {
@@ -271,8 +276,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // --- User Manual Loading ---
+  function loadUserManual() {
+    // In a Chrome extension, you use fetch with a relative path from the extension's root
+    fetch('./USER_MANUAL_ZH.md')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.text();
+      })
+      .then(text => {
+        userGuideContent.textContent = text;
+      })
+      .catch(error => {
+        console.error('Error fetching user manual:', error);
+        userGuideContent.textContent = '无法加载用户手册。请稍后再试。';
+      });
+  }
+
   // --- Initial Load ---
   loadData(); // Load all data when popup opens
+  loadUserManual(); // Load the user manual
   showView(settingsView); // Show Settings view by default
 
   // --- Custom Prompts View Logic (New) ---
