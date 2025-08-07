@@ -98,6 +98,7 @@ These settings are found in the "Settings" view of the popup, typically located 
     *   Any text found between these two symbols, including the symbols themselves, will be removed from the analysis before it is displayed on your webpage.
     *   If only a "Start Symbol" is found without a matching "End Symbol" in the response, the text from that point onwards might remain visible to prevent accidental data loss (this depends on the specific response structure).
     *   If you leave the "Start Symbol" or "End Symbol" fields empty while filtering is enabled, the extension will automatically use the default values (`"<think>"` and `"</think>"`) for filtering.
+    *   **New Feature:** If you leave the **"Start Symbol"** field empty but provide a value for the **"End Symbol"** field, the extension will remove everything from the beginning of the AI's response up to and including the first instance of your "End Symbol". This is useful for trimming a variable-length preamble or "thinking" process at the start of an AI response.
 5.  **Saving:** These response processing settings are saved along with your API details when you click the main **"Save Settings"** button.
 
 ## 4. Usage
